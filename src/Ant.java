@@ -31,7 +31,7 @@ public class Ant {
     }
 
     public Boolean isCollision(Ant other){
-        return other.getPosition() == position;
+        return other.getPosition().compareTo(position) == 0;
     }
 
     public int getId() {
