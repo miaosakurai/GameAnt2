@@ -13,7 +13,7 @@ public class Stick {
     }
 
     public boolean isOnStick(Ant ant) {
-        return (ant.getPosition() <= length && ant.getPosition() >= 0);
+        return (ant.getPosition() < length && ant.getPosition() > 0);
     }
 
     public Integer getLength() {
