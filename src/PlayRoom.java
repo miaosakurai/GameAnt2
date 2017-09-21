@@ -55,12 +55,12 @@ public class PlayRoom {
         PlayRoom pr = new PlayRoom();
         pr.buildDirections(pr.sps.length);
 
-        //如果初始位置有单数，减小速度值防止交叉
-        for (int i = 0; i < pr.sps.length; i++) {
-            if (pr.sps[i] % 2 == 1){
-                pr.speed = 0.5;
-            }
-        }
+//        //如果初始位置有单数，减小速度值防止交叉
+//        for (int i = 0; i < pr.sps.length; i++) {
+//            if (pr.sps[i] % 2 == 1){
+//                pr.speed = 0.5;
+//            }
+//        }
 
         pr.playGames();
     }
