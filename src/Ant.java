@@ -21,13 +21,14 @@ public class Ant {
         return direction;
     }
 
-    public void creeping(){
+    public Double creeping(){
         if (direction) {
             position += speed;
         } else if (!direction){
             position -= speed;
         }
         System.out.println("蚂蚁" + id + "爬到了" + position);
+        return position;
     }
 
     public Boolean isCollision(Ant other){

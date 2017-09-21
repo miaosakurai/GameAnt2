@@ -8,7 +8,7 @@ public class PlayRoom {
     private List<String> ds = new ArrayList<>();//01串 00000~11111，表示方向，0左1右
     private int[] sps = {30,80,110,160,250};//初始位置
     private int stickLen = 300;//杆子长度
-    private double speed = 1;//爬行速度
+    private double speed = 5;//爬行速度
     private Map<String, Long> result = new HashMap<>();//结果
 
     //构造所有可能的初始方向状态

@@ -8,7 +8,7 @@ public class CreepingGame{
     private List<Ant> ants;
     private Stick stick;
 
-    private long startTime;
+    private int timeCost = 0;
 
 
     public boolean init(String directions, double speed, int[] startPos, int stickLength){
@@ -45,10 +45,13 @@ public class CreepingGame{
 
     public long play(){
         System.out.println("play()");
-        startTime = System.currentTimeMillis();
 
         while (!ants.isEmpty()){
-            System.out.println("******** 开始一轮游戏 ********");
+            System.out.println("******** 这一秒里，蚂蚁的移动和状态 ********");
+
+            //过了单位时间1
+            timeCost++;
+
             //爬行
             List<Integer> removeIndexes = new ArrayList<>();
             for (int i = 0; i < ants.size(); i++) {
@@ -66,21 +69,22 @@ public class CreepingGame{
 
             System.out.println("还剩" + ants.size() + "只");
 
-            //若相遇，改变方向,不可能有两只以上蚂蚁在同一个位置
-            for (int j = 0; j < ants.size(); j++) {
-                for (int k = j+1; k < ants.size(); k++) {
-                    Ant a1 = ants.get(j);
-                    Ant a2 = ants.get(k);
-                    if (a1.isCollision(a2)){
-                        a1.changeDirection();
-                        a2.changeDirection();
-                    }
+            //若相遇，改变方向,蚂蚁只能和左右邻居相遇
+            for (int j = 0; j < ants.size()-1; j++) {
+                Ant a1 = ants.get(j);
+                Ant a2 = ants.get(j+1);
+                if (a1.isCollision(a2)){
+                    a1.changeDirection();
+                    a2.changeDirection();
+                    j++;
                 }
             }
+
+
         }
 
         System.out.println("本局结束");
-        return System.currentTimeMillis()-startTime;
+        return timeCost;
     }
 
 }
