@@ -31,10 +31,10 @@ public class PlayRoom {
                 result.put(d,game.play());
             }
         }
-
+        printMinAndMax();
     }
 
-    public void endGame(){
+    public void printMinAndMax(){
         List<Map.Entry<String,Long>> sortedResults = new ArrayList<>(result.entrySet());
         Collections.sort(sortedResults, (o1, o2) -> {
             if (o1.getValue() > o2.getValue()){
@@ -63,7 +63,6 @@ public class PlayRoom {
         }
 
         pr.playGames();
-        pr.endGame();
     }
 
 }
