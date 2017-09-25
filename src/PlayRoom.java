@@ -37,17 +37,13 @@ public class PlayRoom extends JFrame {
 
     //开始游戏
     public void playGames() {
+        //这里调一次creepingGame可以，加上循环之后会并行执行
         CreepingGame game = new CreepingGame();
-        long cost=0;
         this.add(game);
         if (game.init(ds.get(0), speed, sps, stickLen)) {
             result.put(ds.get(0), game.play());
         }
 
-        if (game.init(ds.get(1), speed, sps, stickLen)) {
-
-            result.put(ds.get(1), game.play());
-        }
 
 //        CreepingGame game1=new CreepingGame();
 //        if (game1.init(ds.get(1),speed,sps,stickLen)){
