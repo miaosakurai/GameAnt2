@@ -1,15 +1,22 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * Created by joy12 on 2017/9/19.
  */
-public class CreepingGame{
+public class CreepingGame extends JComponent{
 
     private List<Ant> ants;
     private Stick stick;
-
+    Timer timer;
     private int timeCost = 0;
-
+    private List<ImageIcon> images;
 
     public boolean init(String directions, double speed, int[] startPos, int stickLength){
         System.out.println("----------------------- 开始初始化：" + directions + " -----------------------");
@@ -20,7 +27,7 @@ public class CreepingGame{
 
         stick = new Stick(stickLength);
         ants = new ArrayList<>();
-
+        images=new ArrayList<>();
         for (int i=0; i<directions.length(); i++){
 
             if (startPos[i] > stickLength){
@@ -38,6 +45,8 @@ public class CreepingGame{
             ant.setSpeed(speed);
             ant.setPosition( (double) startPos[i]);
             ants.add(ant);
+            ImageIcon image  =   new  ImageIcon( "image\\image"+i+".png" );
+            images.add(image);
         }
         System.out.println("初始化成功，杆子上现在有 " + ants.size() + " 只蚂蚁");
         return true;
@@ -60,6 +69,7 @@ public class CreepingGame{
         //删除掉下木杆的蚂蚁
         for (Integer index : removeIndexes) {
             System.out.println(ants.get(index).getId() + "号蚂蚁掉下木杆");
+            images.remove(images.get(index));
             ants.remove(ants.get(index));
         }
 
@@ -79,15 +89,41 @@ public class CreepingGame{
 
     public long play(){
         System.out.println("play()");
-
-        while (!ants.isEmpty()){
-            System.out.println("******** 这一秒里，蚂蚁的移动和状态 ********");
-            //过了单位时间1
-            oneSecondPass();
-        }
-
-        System.out.println("本局结束");
+        timer=new Timer(500,new CreepingListener());
+        timer.start();
+        setVisible(true);
+//
+//        while (!ants.isEmpty()){
+//            System.out.println("******** 这一秒里，蚂蚁的移动和状态 ********");
+//            //过了单位时间1
+//            oneSecondPass();
+//        }
         return timeCost;
+    }
+
+    @Override
+    public   void  paintComponent(Graphics page) {
+        super.paintComponent(page);
+        this.add(new JTextArea("等待开始"));
+        if(ants!=null){
+        for(int i=0;i<ants.size();i++) {
+            images.get(i).paintIcon(this,page,ants.get(i).getPosition().intValue()*2,200);
+        }}
+    }
+
+    private   class  CreepingListener  implements ActionListener {
+        @Override
+        public   void  actionPerformed(ActionEvent e) {
+            if(!ants.isEmpty()){
+            System.out.println("******** 这一秒里，蚂蚁的移动和状态 ********");
+            oneSecondPass();
+            repaint();
+            } else{
+                System.out.println("用时"+timeCost+"秒");
+                System.out.println("本局游戏结束~");
+                timer.stop();
+            }
+        }
     }
 
 }

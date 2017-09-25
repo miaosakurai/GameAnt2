@@ -1,7 +1,9 @@
+
+
 /**
  * Created by joy12 on 2017/9/19.
  */
-public class Ant {
+public class Ant{
     private int id;
     private Double speed;// cm/s
     private Boolean direction;// 0左 1右
@@ -28,8 +30,11 @@ public class Ant {
             position -= speed;
         }
         System.out.println("蚂蚁" + id + "爬到了" + position);
+
         return position;
     }
+
+
 
     public Boolean isCollision(Ant other){
         return other.getPosition().compareTo(position) == 0;
